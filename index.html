@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BollyVoice AI - Bollywood Text to Speech Studio</title>
+  <meta name="description" content="Transform any text into iconic Bollywood voices with 5 legendary characters across male and female stars, powered by ElevenLabs AI multilingual speech synthesis.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+</head>
+<body>
+
+  <!-- Ambient Cinematic Glow Background -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="#" class="brand-wrapper" id="brandLogoLink">
+        <div class="brand-icon-box">🎙️</div>
+        <div class="brand-text-col">
+          <h1>BollyVoice <span>AI</span></h1>
+          <span class="brand-subtitle">Bollywood Text to Speech Studio</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div class="api-status-badge" id="apiStatusBadge" title="Connected to ElevenLabs Multilingual Engine">
+          <span class="status-dot"></span>
+          <span class="text">ElevenLabs v2 Ready</span>
+        </div>
+        <button type="button" class="btn-icon" id="btnOpenSettings" title="Configure API Key and Engine">
+          <span>⚙️</span>
+          <span>API Settings</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="heroSection">
+      <div class="hero-badge">
+        <span>⭐ 5 Iconic Bollywood Voices • Multilingual Hindi & English ⭐</span>
+      </div>
+      <h1 class="hero-title">
+        Turn Text into <span class="gradient-cinema">Iconic Bollywood Voices</span>
+      </h1>
+      <p class="hero-desc">
+        Experience cinematic speech synthesis powered by ElevenLabs AI. Select legendary Bollywood actors and actresses across genders to speak your words with drama, romance, elegance, and swagger.
+      </p>
+
+      <!-- Key Feature Badges -->
+      <div class="hero-features-strip">
+        <div class="feature-pill"><span class="dot"></span> 5 Star Characters (3 Male, 2 Female)</div>
+        <div class="feature-pill"><span class="dot"></span> Hindi Devanagari, Hinglish & English</div>
+        <div class="feature-pill"><span class="dot"></span> Real-Time Audio Visualizer</div>
+        <div class="feature-pill"><span class="dot"></span> Instant MP3 Audio Download</div>
+      </div>
+    </section>
+
+    <!-- Star Voices Selection Grid -->
+    <section class="voices-section" id="voicesSection">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>1. Select Your Bollywood Character</h2>
+          <p>Choose from 5 distinct voices crafted with unique pitch, personality, and tone.</p>
+        </div>
+
+        <!-- Gender Filter Tabs -->
+        <div class="filter-tabs" id="genderFilterTabs" role="tablist">
+          <button type="button" class="filter-btn active" id="tabFilterAll" data-filter="all">All Stars (5)</button>
+          <button type="button" class="filter-btn" id="tabFilterMale" data-filter="male">♂ Male Stars (3)</button>
+          <button type="button" class="filter-btn" id="tabFilterFemale" data-filter="female">♀ Female Stars (2)</button>
+        </div>
+      </div>
+
+      <!-- Interactive 5 Voice Cards Grid -->
+      <div class="voices-grid" id="voicesGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- Studio Workbench (Text & Controls) -->
+    <section class="studio-console" id="studioConsole">
+      
+      <!-- Active Voice Header Banner -->
+      <div class="active-voice-banner" id="activeVoiceBanner">
+        <div class="active-voice-details">
+          <div class="active-voice-mini-avatar" id="activeVoiceMiniAvatar">👑</div>
+          <div>
+            <div class="active-voice-title" id="activeVoiceTitle">Amitabh Bachchan (Shahenshah)</div>
+            <div class="active-voice-desc" id="activeVoiceDesc">Deep Baritone • Poetic • Authoritative • Male</div>
+          </div>
+        </div>
+        <div>
+          <span style="font-size: 0.8rem; color: #94a3b8;">Click any dialogue preset below to load instantly</span>
+        </div>
+      </div>
+
+      <!-- Dialogue Input Area -->
+      <div class="input-header">
+        <label for="ttsTextarea" class="input-label">
+          <span>✍️ Enter Dialogue or Script</span>
+        </label>
+        <div class="char-counter" id="charCount">0 characters</div>
+      </div>
+
+      <div class="textarea-container">
+        <textarea 
+          id="ttsTextarea" 
+          class="tts-textarea" 
+          placeholder="Type here in Hindi (e.g. नमस्ते दोस्तों!), Hinglish, or English..."
+          rows="4"
+        ></textarea>
+      </div>
+
+      <!-- Dialogue Presets Drawer -->
+      <div class="preset-drawer" id="presetDrawer">
+        <div class="preset-header">
+          <span>Famous Signature Lines & Dialogues</span>
+          <span style="font-size: 0.72rem; color: #64748b;">(Click to insert)</span>
+        </div>
+        <div class="dialogue-chips" id="dialogueChipsContainer">
+          <!-- Populated dynamically based on selected actor -->
+        </div>
+      </div>
+
+      <!-- Advanced Studio Controls Accordion -->
+      <button type="button" class="accordion-toggle" id="accordionToggle">
+        <span>🎚️ Fine-Tune Voice Dynamics & Studio FX</span>
+        <span>▼</span>
+      </button>
+
+      <div class="accordion-body" id="accordionBody">
+        <div class="control-item">
+          <div class="control-label">
+            <span>Voice Stability / Emotion</span>
+            <span id="valStability">65%</span>
+          </div>
+          <input type="range" class="range-slider" id="sliderStability" min="10" max="95" value="65">
+          <small style="font-size: 0.7rem; color: #64748b;">Lower = more dramatic, Higher = steady</small>
+        </div>
+
+        <div class="control-item">
+          <div class="control-label">
+            <span>Clarity & Similarity Boost</span>
+            <span id="valClarity">85%</span>
+          </div>
+          <input type="range" class="range-slider" id="sliderClarity" min="20" max="100" value="85">
+          <small style="font-size: 0.7rem; color: #64748b;">Enhances voice signature & articulation</small>
+        </div>
+
+        <div class="control-item">
+          <div class="control-label">
+            <span>Speaking Pace</span>
+            <span id="valSpeed">1.0x</span>
+          </div>
+          <input type="range" class="range-slider" id="sliderSpeed" min="0.7" max="1.4" step="0.05" value="1.0">
+          <small style="font-size: 0.7rem; color: #64748b;">Pacing of dialogue delivery</small>
+        </div>
+
+        <div class="control-item">
+          <div class="control-label">
+            <span>Acoustic Profile</span>
+          </div>
+          <select class="fx-select" id="selectFx">
+            <option value="none">Studio Clean (Neutral)</option>
+            <option value="cinema">Cinema Hall (Subtle Warmth)</option>
+            <option value="baritone">Deep Baritone Boost (+3dB Lows)</option>
+            <option value="crisp">Crisp Radio Broadcast</option>
+          </select>
+          <small style="font-size: 0.7rem; color: #64748b;">Mastering equalization preset</small>
+        </div>
+      </div>
+
+      <!-- Action Trigger Buttons -->
+      <div class="studio-actions">
+        <div class="action-status-msg" id="actionStatusMsg">
+          <span>Ready to generate speech.</span>
+        </div>
+
+        <button type="button" class="btn-generate" id="btnGenerate">
+          <span class="spinner" id="generateSpinner"></span>
+          <span id="btnGenerateText">Generate Bollywood Voice</span>
+          <span>✨</span>
+        </button>
+      </div>
+
+      <!-- Audio Player & Visualizer Section -->
+      <div class="player-container" id="playerContainer">
+        
+        <!-- Live Real-Time Canvas Visualizer -->
+        <div class="visualizer-wrapper">
+          <canvas id="audioCanvas"></canvas>
+          <div class="canvas-overlay-text" id="canvasOverlayText">BollyVoice Waveform Engine</div>
+        </div>
+
+        <!-- Master Player Controls Bar -->
+        <div class="player-controls-bar">
+          <button type="button" class="btn-play-pause" id="btnPlayPause" title="Play or Pause">▶</button>
+          
+          <div class="seek-wrapper">
+            <span class="time-stamp" id="currentTime">0:00</span>
+            <input type="range" class="seek-bar" id="seekBar" min="0" max="100" value="0">
+            <span class="time-stamp" id="durationTime">0:00</span>
+          </div>
+
+          <div class="player-secondary-controls">
+            <select class="speed-select" id="speedSelect" title="Playback speed">
+              <option value="0.75">0.75x</option>
+              <option value="1.0" selected>1.0x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+            </select>
+
+            <button type="button" class="btn-download-mp3" id="btnDownloadMp3" title="Download generated audio">
+              <span>📥</span>
+              <span>Download MP3</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Speech Generation History & Library -->
+    <section class="history-section" id="historySection">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Speech Library & Recent Clips</h2>
+          <p>Your recent dialogue generations stored locally in the browser.</p>
+        </div>
+        <button type="button" class="btn-icon" id="btnClearHistory" title="Clear all history">
+          <span>🗑️ Clear History</span>
+        </button>
+      </div>
+
+      <div class="history-card-list" id="historyList">
+        <!-- History items populated dynamically by app.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Settings & API Key Configuration Modal -->
+  <div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="settingsTitle">⚙️ ElevenLabs API Settings</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseModal" title="Close modal">✕</button>
+      </div>
+
+      <div class="modal-field">
+        <label for="inputApiKey">ElevenLabs API Key</label>
+        <div class="modal-input-group">
+          <input 
+            type="password" 
+            id="inputApiKey" 
+            class="modal-input" 
+            placeholder="sk_..."
+            value="sk_774f621bb8d7c89e6a2b682761b2da01681bec964ff02e3f"
+          >
+          <button type="button" class="btn-toggle-mask" id="btnToggleKeyMask" title="Show/Hide Key">👁️</button>
+        </div>
+        <small style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 0.4rem;">
+          Pre-configured with your provided key. Keys are safely preserved in browser local storage.
+        </small>
+      </div>
+
+      <div class="modal-field">
+        <button type="button" class="btn-icon" id="btnTestKey" style="width: 100%; justify-content: center;">
+          <span>🔍</span>
+          <span>Test API Connection</span>
+        </button>
+        <div id="testStatusMessage" style="margin-top: 0.5rem; font-size: 0.82rem; font-weight: 600;"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-generate" id="btnSaveSettings" style="padding: 0.65rem 1.5rem; font-size: 0.9rem;">
+          Save & Apply
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" id="siteFooter">
+    <div class="container footer-inner">
+      <div>
+        <strong>BollyVoice AI</strong> &bull; Crafted with ElevenLabs Multilingual Speech AI
+      </div>
+      <div>
+        Voices: Amitabh Bachchan, Shah Rukh Khan, Deepika Padukone, Priyanka Chopra, Salman Khan
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Application -->
+  <script src="app.js"></script>
+</body>
+</html>
